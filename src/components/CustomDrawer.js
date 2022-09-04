@@ -9,7 +9,7 @@ const ProfileArea=()=>{
     return(
         <SafeAreaView style={styles.profileAreaMainWrapper}>
             <View style={styles.profileImageWrapper}>
-                <Image style={styles.tinyLogo} source={require('../images/profile.jpg')}/>
+                <Image style={styles.tinyLogo} source={require('../images/myProfile.jpg')}/>
             </View>
             <View style={styles.usernamesWrapper}>
                 <Text style={{fontSize:width/20,fontWeight:"bold",margin:0,padding:0}}>Miraç Keskin</Text>

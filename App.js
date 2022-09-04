@@ -32,10 +32,12 @@ import Icon from "react-native-vector-icons/Ionicons";
 //import Icon from 'react-native-vector-icons/FontAwesome';
 
 
+
 function MessageBoxDrawer(){
   return(
     <Drawer.Navigator screenOptions={{headerShown:false}} drawerContent={(props)=><CustomDrawer {...props} />} useLegacyImplementation>
       <Drawer.Screen name="MessageBox" component={MessageBoxScreen} />
+      
     </Drawer.Navigator>
   )
 }
