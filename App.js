@@ -17,96 +17,112 @@ import {
   useColorScheme,
   View,
 } from 'react-native';
+import { createDrawerNavigator } from '@react-navigation/drawer';
+import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+import { NavigationContainer } from '@react-navigation/native';
 
-import {
-  Colors,
-  DebugInstructions,
-  Header,
-  LearnMoreLinks,
-  ReloadInstructions,
-} from 'react-native/Libraries/NewAppScreen';
+import CustomDrawer from './src/components/CustomDrawer';
 
-const Section = ({children, title}): Node => {
-  const isDarkMode = useColorScheme() === 'dark';
+import HomeScreen from './src/screens/HomeScreen';
+import DiscoverScreen from './src/screens/DiscoverScreen';
+import NotificationsScreen from './src/screens/NotificationsScreen';
+import MessageBoxScreen from './src/screens/MessageBoxScreen';
+
+import Icon from "react-native-vector-icons/Ionicons";
+//import Icon from 'react-native-vector-icons/FontAwesome';
+
+
+function MessageBoxDrawer(){
+  return(
+    <Drawer.Navigator screenOptions={{headerShown:false}} drawerContent={(props)=><CustomDrawer {...props} />} useLegacyImplementation>
+      <Drawer.Screen name="MessageBox" component={MessageBoxScreen} />
+    </Drawer.Navigator>
+  )
+}
+
+function NotificationsDrawer(){
+  return(
+    <Drawer.Navigator screenOptions={{headerShown:false}} drawerContent={(props)=><CustomDrawer {...props} />} useLegacyImplementation>
+      <Drawer.Screen name="Notifications" component={NotificationsScreen} />
+    </Drawer.Navigator>
+  )
+}
+
+function DiscoverDrawer() {
   return (
-    <View style={styles.sectionContainer}>
-      <Text
-        style={[
-          styles.sectionTitle,
-          {
-            color: isDarkMode ? Colors.white : Colors.black,
-          },
-        ]}>
-        {title}
-      </Text>
-      <Text
-        style={[
-          styles.sectionDescription,
-          {
-            color: isDarkMode ? Colors.light : Colors.dark,
-          },
-        ]}>
-        {children}
-      </Text>
-    </View>
+    <Drawer.Navigator screenOptions={{headerShown:false}} drawerContent={(props)=><CustomDrawer {...props} />} useLegacyImplementation>
+      <Drawer.Screen name="Discovery" component={DiscoverScreen} />
+    </Drawer.Navigator>
   );
-};
+}
+
+const Drawer = createDrawerNavigator();
+//const Stack = createNativeStackNavigator();
+const Tab=createBottomTabNavigator();
+
+function HomeDrawer() {
+  return (
+    <Drawer.Navigator screenOptions={{headerShown:false}} drawerContent={(props)=><CustomDrawer {...props} />} useLegacyImplementation>
+      <Drawer.Screen  name="Home" component={HomeScreen} />
+    </Drawer.Navigator>
+  );
+}
 
 const App: () => Node = () => {
-  const isDarkMode = useColorScheme() === 'dark';
-
-  const backgroundStyle = {
-    backgroundColor: isDarkMode ? Colors.darker : Colors.lighter,
-  };
+  
 
   return (
-    <SafeAreaView style={backgroundStyle}>
-      <StatusBar barStyle={isDarkMode ? 'light-content' : 'dark-content'} />
-      <ScrollView
-        contentInsetAdjustmentBehavior="automatic"
-        style={backgroundStyle}>
-        <Header />
-        <View
-          style={{
-            backgroundColor: isDarkMode ? Colors.black : Colors.white,
-          }}>
-          <Section title="Step One">
-            Edit <Text style={styles.highlight}>App.js</Text> to change this
-            screen and then come back to see your edits.
-          </Section>
-          <Section title="See Your Changes">
-            <ReloadInstructions />
-          </Section>
-          <Section title="Debug">
-            <DebugInstructions />
-          </Section>
-          <Section title="Learn More">
-            Read the docs to discover what to do next:
-          </Section>
-          <LearnMoreLinks />
-        </View>
-      </ScrollView>
-    </SafeAreaView>
+    <NavigationContainer>
+      <Tab.Navigator tabBarOptions={{ showLabel: false }} >
+
+        <Tab.Screen options={{
+          headerShown:false,
+          tabBarIcon: ({ focused }) => {
+            return (
+              <View>
+                <Icon name="home-outline" size={25}/>
+              </View>
+            );
+          },}}
+        name="Home" component={HomeDrawer} />
+
+        <Tab.Screen options={{
+          headerShown:false,
+          tabBarIcon: ({ focused }) => {
+            return (
+              <View>
+                <Icon name="search-outline" size={25} />
+              </View>
+            );
+          },}} name="Search" component={DiscoverDrawer} />
+
+        <Tab.Screen options={{
+          headerShown:false,
+          tabBarIcon: ({ focused }) => {
+            return (
+              <View>
+                <Icon name="notifications-outline" size={25} />
+              </View>
+            );
+          },}} name="Notifications" component={NotificationsDrawer} />
+
+        <Tab.Screen  options={{
+          headerShown:false,
+          tabBarIcon: ({ focused }) => {
+            return (
+              <View>
+                <Icon name="mail-outline" size={25} />
+              </View>
+            );
+          },}} name="Message Box" component={MessageBoxDrawer} />
+
+      </Tab.Navigator>
+    </NavigationContainer>
   );
 };
 
 const styles = StyleSheet.create({
-  sectionContainer: {
-    marginTop: 32,
-    paddingHorizontal: 24,
-  },
-  sectionTitle: {
-    fontSize: 24,
-    fontWeight: '600',
-  },
-  sectionDescription: {
-    marginTop: 8,
-    fontSize: 18,
-    fontWeight: '400',
-  },
-  highlight: {
-    fontWeight: '700',
-  },
+  
 });
 
 export default App;
