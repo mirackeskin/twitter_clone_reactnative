@@ -5,14 +5,15 @@ import Icon from "react-native-vector-icons/Ionicons";
 
 const {width,height}=Dimensions.get("screen");
 
-const HeaderBarMessageBox = () => {
+const HeaderBarSearch = (props) => {
+    const {placeholder}=props;
   return (
     <SafeAreaView style={styles.headerBarMainWrapper}>
       <View style={styles.headerBarImageWrapper}>
         <Image style={styles.tinyLogo} source={require('../images/myProfile.jpg')}/>
       </View>
       <View style={styles.headerBarInputWrapper}>
-        <TextInput style={{borderWidth:1,borderColor:"gainsboro",backgroundColor:"gainsboro",borderRadius:20}} placeholder='Direkt Mesajlarda Ara'></TextInput>
+        <TextInput style={{borderWidth:1,borderColor:"gainsboro",backgroundColor:"gainsboro",borderRadius:20}} placeholder={placeholder}></TextInput>
       </View>
       <View>
         <TouchableOpacity activeOpacity={0.5}>
@@ -23,7 +24,7 @@ const HeaderBarMessageBox = () => {
   )
 }
 
-export default HeaderBarMessageBox
+export default HeaderBarSearch
 
 const styles = StyleSheet.create({
   headerBarMainWrapper:{
