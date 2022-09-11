@@ -1,5 +1,5 @@
-import { StyleSheet, Text, View ,SafeAreaView,Image,Dimensions, TouchableOpacity} from 'react-native'
-import React from 'react'
+import { StyleSheet, Text, View ,SafeAreaView,Image,Dimensions, TouchableOpacity,ScrollView} from 'react-native'
+import React, { useState } from 'react'
 
 import Icon from "react-native-vector-icons/Ionicons";
 
@@ -12,7 +12,7 @@ const ProfileArea=()=>{
                 <Image style={styles.tinyLogo} source={require('../images/myProfile.jpg')}/>
             </View>
             <View style={styles.usernamesWrapper}>
-                <Text style={{fontSize:width/20,fontWeight:"bold",margin:0,padding:0}}>Miraç Keskin</Text>
+                <Text style={{fontSize:width/20,fontWeight:"bold",margin:0,padding:0,color:"black"}}>Miraç Keskin</Text>
                 <Text style={{fontSize:width/29,margin:0,padding:0,color:"gray"}}>@mirackeskin</Text>
             </View>
             <View style={styles.followersInfoWrapper}>
@@ -39,14 +39,15 @@ const DrawerButtons=()=>{
 }
 
 const DrawerButton=(props)=>{
+    const [isClick,setIsClick]=useState(false);
     const {icon,title}=props;
     return(
         <SafeAreaView style={styles.drawerButtonWrapper}>
-            <TouchableOpacity style={{flexDirection:"row",alignItems:"center",width:"100%",height:"100%"}} activeOpacity={0.1}>
-                <Icon name={icon} size={width/22}></Icon>
-                <Text style={{fontSize:width/22,marginLeft:width/41}}>{props.title}</Text>
+            <TouchableOpacity onPressIn={()=>setIsClick(true)} onPressOut={()=>setIsClick(false)} style={isClick ? styles.drawerButtonClick : styles.drawerButton} activeOpacity={0.1}>
+                <Icon name={icon} style={{color:"black"}} size={width/18}></Icon>
+                <Text style={{fontSize:width/22,marginLeft:width/41,color:"black"}}>{props.title}</Text>
             </TouchableOpacity>
-    </SafeAreaView>
+        </SafeAreaView>
     )
 }
 
@@ -64,8 +65,11 @@ const CustomDrawer = () => {
   return (
     <SafeAreaView style={styles.mainWrapper}>
       <ProfileArea></ProfileArea>
-      <DrawerButtons></DrawerButtons>
-      <DrawerSettingsArea></DrawerSettingsArea>
+      <ScrollView>
+        <DrawerButtons></DrawerButtons>
+        <DrawerSettingsArea></DrawerSettingsArea>
+      </ScrollView>
+      
     </SafeAreaView>
   )
 }
@@ -79,7 +83,7 @@ const styles = StyleSheet.create({
     },
     profileAreaMainWrapper:{
         width:"100%",
-        height:"25%",
+        height:"30%",
         paddingHorizontal:width/82
     },
     tinyLogo:{
@@ -103,24 +107,36 @@ const styles = StyleSheet.create({
         width:"100%",
         height:"25%",
         justifyContent:"flex-start",
-        alignItems:"center"
+        alignItems:"center",
     },
     drawerButtonsMainWrapper:{
-        height:"60%",
+        
         width:"100%",
-        paddingHorizontal:width/82
     },
     drawerButtonWrapper:{
-        height:height/15,
+        height:height/13,
         width:"100%",
         alignItems:"flex-start",
-        justifyContent:"center"
+        justifyContent:"center",
+    },
+    drawerButton:{
+        flexDirection:"row",
+        alignItems:"center",
+        width:"100%",
+        height:"100%",
+        paddingHorizontal:width/82
+    },
+    drawerButtonClick:{
+        backgroundColor:"gainsboro",
+        flexDirection:"row",
+        alignItems:"center",
+        width:"100%",
+        height:"100%",
+        paddingHorizontal:width/82
     },
     drawerSettingsAreaWrapper:{
         width:"100%",
-        height:"15%",
-        paddingHorizontal:width/82,
         borderTopColor:"gainsboro",
-        borderTopWidth:0.5
+        borderTopWidth:0.5,
     }
 })

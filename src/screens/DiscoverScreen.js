@@ -3,6 +3,7 @@ import React, { useState } from 'react'
 
 
 import HeaderBarSearch from '../components/HeaderBarSearch';
+import { useNavigation } from '@react-navigation/native';
 
 
 const {width,height}=Dimensions.get("screen");
@@ -11,8 +12,11 @@ const {width,height}=Dimensions.get("screen");
 const AgendaCard=(props)=>{
   const [click,setClick]=useState(false);
   const {agendaTitle,cardTitle}=props;
+
+  const Navigation=useNavigation();
+
   return(
-    <TouchableOpacity onPressOut={()=>setClick(false)} onPressIn={()=>setClick(true)} style={click ? styles.agendaCardWrapperClick : styles.agendaCardWrapper}>
+    <TouchableOpacity onPress={()=>Navigation.navigate("agendaContentScreen")} onPressOut={()=>setClick(false)} onPressIn={()=>setClick(true)} style={click ? styles.agendaCardWrapperClick : styles.agendaCardWrapper}>
       <Text style={{color: "gray"}}>{agendaTitle}</Text>
       <Text style={{fontSize:16,fontWeight:"bold",color:"black"}}>{cardTitle}</Text>
       <Text>1905 Tweet</Text>

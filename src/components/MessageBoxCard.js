@@ -1,5 +1,10 @@
 import { SafeAreaView, StyleSheet, Text, View,Dimensions,Image ,TouchableOpacity} from 'react-native'
 import React, { useState } from 'react'
+import { useNavigation } from '@react-navigation/native';
+
+
+
+
 const {width,height}=Dimensions.get("screen");
 
 const MessageBoxCard = (props) => {
@@ -7,10 +12,10 @@ const MessageBoxCard = (props) => {
     const [click,setClick]=useState(false);
     const {image,name,username,date}=props;
     
-    
+    const Navigation=useNavigation();
 
   return (
-    <TouchableOpacity onPressOut={()=>setClick(false)} onPressIn={()=>setClick(true)} activeOpacity={0.8} style={click? styles.messageBoxCardWrapperClick : styles.messageBoxCardWrapper}>
+    <TouchableOpacity onPress={()=>Navigation.navigate("messageContentScreen",({image,name,username}))} onPressOut={()=>setClick(false)} onPressIn={()=>setClick(true)} activeOpacity={0.8} style={click? styles.messageBoxCardWrapperClick : styles.messageBoxCardWrapper}>
       <View style={styles.leftSideWrapper}>
         <Image style={styles.tinyLogo} source={image} />
       </View>
