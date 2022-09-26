@@ -66,12 +66,10 @@ const styles = StyleSheet.create({
 
   },
   covidImageWrapper:{
-    backgroundColor:"red",
     width:"100%",
     height:height/3,
   },
   covidLogo:{
-    backgroundColor:"orange",
     width:"100%",
     height:height/3
   },
